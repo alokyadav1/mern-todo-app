@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+body{
+  background-color: rgb(188, 214, 214);
+  font-family: 'Poppins', sans-serif;
+}
+.active{
+  color: white;
+  background-color: rgb(58, 58, 197);
+  font-weight: bolder;
+  padding: 5px 10px;
+  border-radius: 50px;
+  box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.5);
+}
+task-container{
+  height: 90vh;
+  background-color: whitesmoke;
+}
+
+.addTask{
+  height: 10vh;
+  background-color: transparent;
+  padding: 10px;
+}
+.outlet{
+  height:80vh;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  padding: 1rem;
+}
+.indicator{
+  display: flex;
+  align-items: center;
+  height:10vh;
+  margin:auto 10px;
+}
