@@ -39,7 +39,7 @@ const registerUser = async (req,res) => {
     const {name, email, password} = req.body;
     try{
         //check if user already exists
-        const exists = userModel.findOne({email})
+        const exists = await userModel.findOne({email})
         if(exists){
             return res.status(400).json({message: "User already exists"})
         }
@@ -67,9 +67,11 @@ const registerUser = async (req,res) => {
 
 //get user info
 const getUser = async (req,res) => {
+    console.log(req.user.id);
+    const id = req.user.id
     try{
-        const user = await userModel.find()
-        res.status(200).json(user)
+        const user = await userModel.find({_id:id})
+        res.status(200).json({user,token: req.token})
     } catch(error){
         res.status(500).json({message: error.message})
     }
