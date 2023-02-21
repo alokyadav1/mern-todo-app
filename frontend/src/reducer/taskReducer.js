@@ -11,6 +11,9 @@ function taskReducer(tasks, action) {
                 }
             ]
         }
+        case "SET_TASK": {
+            return action.payload
+        }
         case "REMOVE_TASK": {
             return tasks.filter((task, index) => index !== action.id)
         }

@@ -20,6 +20,7 @@ function App() {
   const [userToken, tokenDispatch] = useReducer(tokenReducer, token)
   const [user, userDispatch] = useReducer(userReducer, {})
   useEffect(() => {
+    console.log("App.js");
     const fetchUser = async () => {
       try {
         const res = await axios.get("/user/getUser",{
@@ -32,17 +33,35 @@ function App() {
       } catch (error) {
         console.log(error);
       }
-      
     }
-    fetchUser()
+    if (token) {
+      fetchUser()
+    }
   },[token])
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const res = await axios.get("/task/getTask", {
+          headers: {
+            Authorization: `Bearer ${userToken}`
+          }
+        })
+        dispatch({ type: "SET_TASK", payload: res.data })
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (userToken) {
+      fetchTasks()
+    }
+  },[userToken])
   return (
     <BrowserRouter>
       <TokenContext.Provider value={{userToken, tokenDispatch, user, userDispatch}}>
         <TaskContext.Provider value={{ tasks, dispatch }}>
           <Routes>
             <Route path="/" element={<Header />}>
-              <Route path='/' element={<Layout />}>
+              <Route path='/' element={token ? <Layout /> : <Login />}>
                 <Route index element={<AllTask />} />
                 <Route path="active" element={<Active />} />
                 <Route path="completed" element={<Completed />} />

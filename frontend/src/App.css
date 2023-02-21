@@ -3,7 +3,21 @@ body{
   background-color: rgb(188, 214, 214);
   font-family: 'Poppins', sans-serif;
 }
-.active{
+/* customize scroll bar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 255, 0.705);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.active, .logout{
   color: white;
   background-color: rgb(58, 58, 197);
   font-weight: bolder;
@@ -26,6 +40,7 @@ task-container{
   background-color: whitesmoke;
   border-radius: 10px;
   padding: 1rem;
+  overflow: auto;
 }
 .indicator{
   display: flex;
