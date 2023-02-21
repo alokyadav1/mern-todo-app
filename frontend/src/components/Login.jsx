@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import axios from "../Axios/axios.js"
+import TokenContext from '../context/TokenContext.js';
 function Login() {
     const [formData, setFormData] = useState({});
-    const handleSubmit = (e) => {
+    const { userToken, tokenDispatch, userDispatch } = useContext(TokenContext);
+    const [error, setError] = useState();
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        try {
+            const result = await axios.post("/user/login", formData)
+            tokenDispatch({ type: "SET_TOKEN", payload: result.data.token })
+            userDispatch({ type: "SET_USER", payload: result.data.user })
+            localStorage.setItem("authToken", JSON.stringify(result.data.token))
+        } catch (error) {
+            console.log(error);
+            setError({ message: error.response.data.message })
+        }
     }
 
     const handleChange = (e) => {
@@ -12,6 +25,7 @@ function Login() {
     }
     return (
         <div>
+            {userToken && <Navigate to="/" />}
             <section className="login-container">
                 <div className="px-6 h-full text-gray-800">
                     <div className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
@@ -46,6 +60,14 @@ function Login() {
                                 </div>
                                 <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
                                     <p className="text-center font-semibold mx-4 mb-0">Or</p>
+                                </div>
+                                <div>
+                                    {error && (
+                                        <div className="text-center border-2 border-green-600 p-2 mb-2 rounded-md bg-red-200 shadow-2xl">
+                                            {error.message}
+                                        </div>
+                                    )
+                                    }
                                 </div>
                                 {/* Email input */}
                                 <div className="mb-6">
