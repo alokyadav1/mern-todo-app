@@ -8,6 +8,7 @@ function Task({ task, id }) {
 
     const handleRemove = (e) => {
         e.preventDefault();
+        
         dispatch({
             type: "REMOVE_TASK",
             id
