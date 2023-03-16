@@ -12,17 +12,17 @@ function CreateTask() {
     // const [toast, setToast] = useState();
     const handleAdd = async (e) => {
         e.preventDefault();
-        // try {
-        //     const res = await axios.post("/task/addTask", {title, description},{
-        //       headers: {
-        //         Authorization: `Bearer ${userToken}`
-        //       }
-        //     })
-        //     //setToast(res.data)
-        //     // showToast();
-        //   } catch (error) {
-        //     console.log(error);
-        //   }
+        try {
+            const res = await axios.post("/task/addTask", {title, description},{
+              headers: {
+                Authorization: `Bearer ${userToken}`
+              }
+            })
+            //setToast(res.data)
+            // showToast();
+          } catch (error) {
+            console.log(error);
+          }
         dispatch({
             type: "ADD_TASK",
             title,
