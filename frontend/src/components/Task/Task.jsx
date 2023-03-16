@@ -29,7 +29,6 @@ function Task({ task, id}) {
             <div className="task-info text-slate-900 text-sm w-10/12">
                 <h4 className="task-title text-lg">{task.title}</h4>
                 <p className="task-description">{task.description}</p>
-                <p>{`${task.completed}`}</p>
             </div>
             <div className="remove-task text-sm text-white">
                 <DeleteIcon
