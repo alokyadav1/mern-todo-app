@@ -16,9 +16,12 @@ const addTask = (req, res) => {
         )
 }
 
+const removeTask = (req, res) => {
+    
+}
 const getTask = (req, res) => {
     taskModel.find({ userId: req.user.id })
         .then((data) => res.status(200).json(data))
         .catch((error) => res.status(500).json({ message: error.message }))
 }
-export { addTask, getTask }
+export { addTask, getTask, removeTask }
