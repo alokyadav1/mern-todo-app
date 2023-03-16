@@ -3,7 +3,7 @@ import "./task.css";
 import { useContext } from 'react';
 import TaskContext from '../../context/TaskContext';
 import DeleteIcon from '@mui/icons-material/Delete';
-function Task({ task, id }) {
+function Task({ task, id}) {
     const { dispatch } = useContext(TaskContext);
 
     const handleRemove = (e) => {
@@ -14,11 +14,22 @@ function Task({ task, id }) {
             id
         })
     }
+
+    const handleMarkDone = (e) => {
+        dispatch({
+            type: "MARK_DONE",
+            id
+        })
+    }
     return (
         <div className='bg-slate-300 py-4 rounded-lg shadow-md flex items-center justify-center gap-2 mb-3'>
+            <div className="mark-done">
+                <input type="checkbox" className="checkbox" onChange={handleMarkDone} checked={task.completed}/>
+            </div>
             <div className="task-info text-slate-900 text-sm w-10/12">
                 <h4 className="task-title text-lg">{task.title}</h4>
                 <p className="task-description">{task.description}</p>
+                <p>{`${task.completed}`}</p>
             </div>
             <div className="remove-task text-sm text-white">
                 <DeleteIcon

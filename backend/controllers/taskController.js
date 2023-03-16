@@ -4,7 +4,7 @@ const addTask = (req, res) => {
     const { title, description } = req.body;
     const userId = req.user.id;
     console.log("userId", userId);
-    const newTask = new taskModel({ title, description, userId })
+    const newTask = new taskModel({ title, description,completed:false, userId })
     newTask.save()
         .then(() => res.status(200).json({ message: "Task added successfully" }))
         .catch((error) => {
