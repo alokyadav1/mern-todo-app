@@ -71,6 +71,7 @@ const getUser = async (req,res) => {
     const id = req.user.id
     try{
         const user = await userModel.find({_id:id})
+        console.log("User: ", user);
         res.status(200).json({user,token: req.token})
     } catch(error){
         res.status(500).json({message: error.message})
