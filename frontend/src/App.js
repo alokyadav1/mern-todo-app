@@ -17,7 +17,7 @@ import ForgotPassword from './components/forgotPassword/ForgotPassword';
 import ResetPassword from './components/forgotPassword/ResetPassword';
 import axios from './Axios/axios.js';
 function App() {
-  const token = localStorage.getItem("authToken")
+  const token = JSON.parse(localStorage.getItem("authToken"));
   const [tasks, dispatch] = useReducer(taskReducer, [])
   const [userToken, tokenDispatch] = useReducer(tokenReducer, token)
   const [user, userDispatch] = useReducer(userReducer, {})
@@ -25,24 +25,27 @@ function App() {
     console.log("App.js");
     const fetchUser = async () => {
       try {
+        console.log("fetchUser");
         const res = await axios.get("/user/getUser",{
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${userToken}`
           }
         })
-        tokenDispatch({type: "SET_TOKEN", payload: res.token})
-        userDispatch({type: "SET_USER", payload:res.data})
+        //tokenDispatch({type: "SET_TOKEN", payload: res.token})
+        console.log("res.data: ", res.data);
+        userDispatch({type: "SET_USER", payload:res.data.user})
       } catch (error) {
         console.log(error);
       }
     }
-    if (token) {
+    if (userToken) {
       fetchUser()
     }
-  },[token])
+  },[userToken])
   useEffect(() => {
     const fetchTasks = async () => {
       try {
+        console.log("fetchTasks");
         const res = await axios.get("/task/getTask", {
           headers: {
             Authorization: `Bearer ${userToken}`

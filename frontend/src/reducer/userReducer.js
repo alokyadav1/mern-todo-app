@@ -1,4 +1,4 @@
-function userReducer(userToken, action) {
+function userReducer(user, action) {
     console.log("userreducer");
     switch(action.type){
         case "SET_USER":{
@@ -7,7 +7,7 @@ function userReducer(userToken, action) {
         case "UNSET_USER":{
             return {};
         }
-        default: return userToken;
+        default: return user;
     }
 }
 export default userReducer;
