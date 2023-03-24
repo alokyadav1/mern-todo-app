@@ -4,8 +4,6 @@ import { createTransport } from 'nodemailer';
 import dotenv from "dotenv";
 dotenv.config();
 const sendMail = (email, subject, title, description) => {
-    console.log("username: ", process.env.GMAIL_USERNAME);
-    console.log("password: ", process.env.GMAIL_PASSWORD);
     var transporter = createTransport({
         service: 'gmail',
         auth: {
@@ -32,9 +30,7 @@ const sendMail = (email, subject, title, description) => {
 const addTask = async (req, res) => {
     const { title, description } = req.body;
     const userId = req.user.id;
-    console.log("userId", userId);
     const user = await userModel.find({_id: userId});
-    console.log("email: ", user[0].email);
     const newTask = new taskModel({ title, description, completed: false, userId })
     newTask.save()
         .then(() => {
@@ -42,7 +38,6 @@ const addTask = async (req, res) => {
             return (res.status(200).json({ message: "Task added successfully" }))
         })
         .catch((error) => {
-            console.log("taskcontroller addTask");
             return (
                 res.status(500).json({ message: error.message })
             )
@@ -50,9 +45,6 @@ const addTask = async (req, res) => {
         )
 }
 
-const removeTask = (req, res) => {
-
-}
 const getTask = (req, res) => {
     taskModel.find({ userId: req.user.id })
         .then((data) => res.status(200).json(data))
