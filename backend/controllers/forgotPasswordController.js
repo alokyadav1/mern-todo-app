@@ -19,7 +19,6 @@ const forgotPassword = async (req, res) => {
     const resetToken = crypto.randomBytes(20).toString('hex');
     user.resetToken = resetToken;
     await user.save();
-    console.log("user1: ", user);
     
     //Send email with reset token
     const resetUrl = `http://localhost:3000/resetPassword?token=${resetToken}`;
