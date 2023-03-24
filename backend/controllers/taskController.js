@@ -44,10 +44,17 @@ const addTask = async (req, res) => {
         }
         )
 }
+const removeTask = (req, res) => {
+    const { id } = req.body;
+    console.log("id: ", id);
+    taskModel.findByIdAndDelete(id)
+        .then(() => res.status(200).json({ message: "Task deleted successfully" }))
+        .catch((error) => res.status(501).json({ message: error.message }))
+}
 
 const getTask = (req, res) => {
     taskModel.find({ userId: req.user.id })
         .then((data) => res.status(200).json(data))
         .catch((error) => res.status(501).json({ message: error.message }))
 }
-export { addTask, getTask }
+export { addTask, getTask,removeTask }
