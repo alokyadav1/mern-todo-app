@@ -50,4 +50,4 @@ const getTask = (req, res) => {
         .then((data) => res.status(200).json(data))
         .catch((error) => res.status(501).json({ message: error.message }))
 }
-export { addTask, getTask, removeTask }
+export { addTask, getTask }
