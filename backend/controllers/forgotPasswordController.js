@@ -56,7 +56,6 @@ const resetPassword = async (req, res) => {
     // Verify reset token
     console.log("token: ", token);
     const user = await userModel.findOne({ resetToken:token });
-    console.log("user: ", user);
     if (!user) {
       return res.status(400).json({ message: 'Invalid token' });
     }
