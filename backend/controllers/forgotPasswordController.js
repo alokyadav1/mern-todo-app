@@ -23,6 +23,7 @@ const forgotPassword = async (req, res) => {
     //Send email with reset token
     const resetUrl = `http://localhost:3000/resetPassword?token=${resetToken}`;
     var transporter = createTransport({
+        service: 'gmail',
         host: 'smtp.gmail.com',
         port: 465,
         secure: true,
